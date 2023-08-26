@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { increment, incrementByAmount, selectCount } from "./counterSlice";
-
+// import { Link } from "react-router-dom";
 export function Signup() {
 //   const count = useSelector(selectCount);
   const dispatch = useDispatch();
@@ -75,8 +75,8 @@ export function Signup() {
               </div>
               <div className="mt-2">
                 <input
-                  id="password"
-                  name="password"
+                  id="confirm-password"
+                  name="confirm-password"
                   type="password"
                   autoComplete="current-password"
                   required
