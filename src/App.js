@@ -8,6 +8,8 @@ import { createBrowserRouter,RouterProvider,Route } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 // import ProductDetails from './features/product-list/components/ProductDetails';
 import ProductDetailsPage from './pages/ProductDetailsPage';
+import Checkout from './pages/Checkout';
+
 const router = createBrowserRouter([
   {
     path:"/",
@@ -25,10 +27,10 @@ const router = createBrowserRouter([
     path:"/cart",
     element:<CartPage/>
   },
-  // {
-  //   path:"/cart",
-  //   element:<CartPage/>
-  // },
+  { 
+    path: '/checkout',
+    element: <Checkout></Checkout>,
+  },
   {
     path:"/product-detail",
     element:<ProductDetailsPage/>
