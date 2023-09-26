@@ -1844,12 +1844,13 @@ const categories_obj = categories.map(c=> ({
     label: c,
     checked: false
 }))
-console.log(categories_obj);
+// console.log(categories_obj);
 
-// const brands = products.map(b=>b.brand);
-// const brands_obj = brands.map(c=> ({
-//     value : c,
-//     label: c,
-//     checked: false
-// }))
-// console.log(brands_obj)
+const brands = [...new Set(products.map(b=>b.brand))];
+// console.log(brands);
+const brands_obj = brands.map(c=> ({
+    value : c,
+    label: c,
+    checked: false
+}))
+console.log(brands_obj)
