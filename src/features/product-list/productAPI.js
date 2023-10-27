@@ -10,6 +10,24 @@ export function fetchAllProducts() {
   );
 }
 
+// ------------------------- Calling Categories API ---------------------------
+export function fetchCategories(){
+  return new Promise(async(resolve)=>{
+    const response = await fetch('http://localhost:8080/categories');
+    const data = await response.json();
+    resolve({data});
+  })
+}
+
+// ------------------------- Calling Brands API ---------------------------
+export function fetchBrands(){
+  return new Promise(async(resolve)=>{
+    const response = await fetch('http://localhost:8080/brands');
+    const data = await response.json();
+    resolve({data});
+  })
+}
+
 export function fetchProductsByFilters({filter,sort, pagination}) {
 
   // filter = {category: ["smartphone", "Laptops"], brand:["apple"]}    
