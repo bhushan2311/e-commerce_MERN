@@ -10,6 +10,15 @@ export function fetchAllProducts() {
   );
 }
 
+// ------------------------- Calling particular product by id ---------------------------
+export function fetchProductbyId(id){
+  return new Promise(async(resolve)=>{
+    const response = await fetch('http://localhost:8080/products/'+id);
+    const data = await response.json();
+    resolve({data});
+  })
+}
+
 // ------------------------- Calling Categories API ---------------------------
 export function fetchCategories(){
   return new Promise(async(resolve)=>{
