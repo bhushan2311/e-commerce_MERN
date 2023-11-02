@@ -9,31 +9,32 @@ import CartPage from './pages/CartPage';
 // import ProductDetails from './features/product-list/components/ProductDetails';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import Checkout from './pages/Checkout';
+import {Protected} from './features/auth/components/Protected';
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element:<Home/>
+    element:<Protected><Home/></Protected>
   },
   {
     path:"/signup",
     element:<SignupPage/>
   },
   {
-    path:"/signin",
+    path:"/login",
     element:<LoginPage/>
   },
   {
     path:"/cart",
-    element:<CartPage/>
+    element:<Protected><CartPage/></Protected> 
   },
   { 
     path: '/checkout',
-    element: <Checkout></Checkout>,
+    element:<Protected><Checkout></Checkout></Protected>,
   },
   {
     path:"/product-detail/:id",
-    element:<ProductDetailsPage/>
+    element:<Protected><ProductDetailsPage/></Protected>
   },
 ])
 
