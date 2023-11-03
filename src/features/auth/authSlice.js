@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { createUser} from './authAPI'
+import { checkUser, createUser} from './authAPI'
 
 // the below is 'state.product' where the product is inside store
 const initialState = {
     loggedInUser:null,
-  status:'idle'
+  status:'idle',
+  error:null
 };
 
+// -------------------------- Create new User Async -----------------------------------------
 export const createUserAsync = createAsyncThunk(
   'user/createUser',
   async (userData) => {
@@ -16,6 +18,15 @@ export const createUserAsync = createAsyncThunk(
     return response.data;
   }
 );
+
+// ----------------------------- Check User Async -----------------------------------------
+export const checkUserAsync = createAsyncThunk(
+    'user/checkUser',
+    async(loginInfo)=>{
+        const response = await checkUser(loginInfo);
+        return response.data;
+    }
+)
 
 export const authSlice = createSlice({
     name:'user',
@@ -37,9 +48,21 @@ export const authSlice = createSlice({
             state.status = 'idle';
             state.loggedInUser = action.payload;
           })
+          .addCase(checkUserAsync.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(checkUserAsync.fulfilled, (state, action) => {
+            state.status = 'idle';
+            state.loggedInUser = action.payload;
+          })
+          .addCase(checkUserAsync.rejected, (state, action) => {
+            state.status = 'idle';
+            state.error = action.error;
+          })
         }
 })
 
 export const selectLoggedInUser = (state) => state.auth.loggedInUser;
+export const selectError = (state) => state.auth.error;
 
 export default authSlice.reducer;

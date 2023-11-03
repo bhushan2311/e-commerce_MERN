@@ -18,9 +18,9 @@ const navigation = [
   { name: "Team", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your Profile", link: "#" },
+  { name: "Settings", link: "#" },
+  { name: "Sign out", link: "/login" },
 ];
 
 function classNames(...classes) {
@@ -109,7 +109,7 @@ const Navbar = ({ children }) => {
                             {userNavigation.map((item) => (
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
-                                  <a
+                                  <Link to={item.link}
                                     href={item.href}
                                     className={classNames(
                                       active ? "bg-gray-100" : "",
@@ -117,7 +117,7 @@ const Navbar = ({ children }) => {
                                     )}
                                   >
                                     {item.name}
-                                  </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                             ))}
