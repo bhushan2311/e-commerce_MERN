@@ -5,13 +5,19 @@ import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import { createBrowserRouter,RouterProvider,Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import CartPage from './pages/CartPage';
 // import ProductDetails from './features/product-list/components/ProductDetails';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import Checkout from './pages/Checkout';
 import {Protected} from './features/auth/components/Protected';
+import { useDispatch,useSelector } from 'react-redux';
+import { fetchItemsbyUserIdAsync } from './features/cart/cartSlice';
+import { selectLoggedInUser } from './features/auth/authSlice';
+
 
 const router = createBrowserRouter([
+
   {
     path:"/",
     element:<Protected><Home/></Protected>
@@ -39,6 +45,17 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+
+  const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
+  console.log(user);
+  useEffect(() => {
+    if(user){
+      dispatch(fetchItemsbyUserIdAsync(user.id));
+    }
+  }, [dispatch,user])
+  
+
   return (
     <div className="App">
       {/* <Home/> */}

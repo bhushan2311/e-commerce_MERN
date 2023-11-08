@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementByAmount, selectCount } from "./cartSlice";
+import { increment, incrementByAmount } from "./cartSlice";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { selectCartItems } from "./cartSlice";
+
 
 const products = [
   {
@@ -34,9 +36,10 @@ const products = [
   // More products...
 ];
 export default function Cart() {
-  const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
+
+  const items = useSelector(selectCartItems);
 
   return (
     <>
@@ -51,11 +54,11 @@ export default function Cart() {
           <div className="mt-8">
             <div className="flow-root">
               <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {products.map((product) => (
+                {items.map((product) => (
                   <li key={product.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                       <img
-                        src={product.imageSrc}
+                        src={product.thumbnail}
                         alt={product.imageAlt}
                         className="h-full w-full object-cover object-center"
                       />
@@ -67,11 +70,16 @@ export default function Cart() {
                           <h3>
                             <a href={product.href}>{product.name}</a>
                           </h3>
-                          <p className="ml-4">{product.price}</p>
+                          <p className="ml-4">${product.price}</p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
-                          {product.color}
+                          {product.brand}
+                        
                         </p>
+                        {/* <p className="mt-1 text-sm text-gray-500">
+                          {product.description}
+                        
+                        </p> */}
                       </div>
                       <div className="flex flex-1 items-end justify-between text-sm">
                         <p className="text-gray-500">
