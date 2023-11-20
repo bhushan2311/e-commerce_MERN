@@ -5,8 +5,7 @@ import { increment, incrementByAmount } from "./cartSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { selectCartItems } from "./cartSlice";
-
+import { selectCartItems,deleteFromCartAsync } from "./cartSlice";
 
 const products = [
   {
@@ -41,6 +40,10 @@ export default function Cart() {
 
   const items = useSelector(selectCartItems);
 
+  const handleRemove = (e,id)=>{
+    dispatch(deleteFromCartAsync(id));
+  }
+
   return (
     <>
       <div
@@ -74,7 +77,6 @@ export default function Cart() {
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
                           {product.brand}
-                        
                         </p>
                         {/* <p className="mt-1 text-sm text-gray-500">
                           {product.description}
@@ -93,6 +95,7 @@ export default function Cart() {
 
                         <div className="flex">
                           <button
+                            onClick={e=>handleRemove(e,product.id)}
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
