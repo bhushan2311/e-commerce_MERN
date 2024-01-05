@@ -23,6 +23,25 @@ export function fetchItemsbyUserId(userId) {
     }
   }
   );
+
+}
+export function updateCart(updateItem) {
+  return new Promise(async (resolve) =>{
+    const response = await fetch('http://localhost:8080/cart/'+updateItem.id,{
+      method:"PATCH",
+      body:JSON.stringify(updateItem),
+      headers:{ "content-type": "application/json" }
+    });
+    const data = await response.json();
+    if(data){
+      resolve({data})
+    }
+    else{
+      resolve({data:"Couldn't Update Item"})
+      
+    }
+  }
+  );
 }
 
 export function deleteFromCart(productId) {

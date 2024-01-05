@@ -5,7 +5,7 @@ import { increment, incrementByAmount } from "./cartSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { selectCartItems,deleteFromCartAsync } from "./cartSlice";
+import { selectCartItems,deleteFromCartAsync,updateCartAsync } from "./cartSlice";
 
 const products = [
   {
@@ -43,6 +43,13 @@ export default function Cart() {
   const handleRemove = (e,id)=>{
     dispatch(deleteFromCartAsync(id));
   }
+
+  const updateCart = (e,item)=>{
+    dispatch(updateCartAsync({...item, quantity:+e.target.value}));
+  }
+
+  const totalPrice = items.reduce((amount,item)=> amount + item.price*item.quantity,0);
+  const totalItems = items.reduce((total,item) => total + item.quantity,0);
 
   return (
     <>
@@ -86,7 +93,7 @@ export default function Cart() {
                       <div className="flex flex-1 items-end justify-between text-sm">
                         <p className="text-gray-500">
                           Qty {product.quantity}
-                          <select className="ml-3" name="" id="">
+                          <select className="ml-3" name="" id=""  onChange={e=>updateCart(e,product)} value={product.quantity}>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -117,7 +124,11 @@ export default function Cart() {
       >
         <div className="flex justify-between text-base font-medium text-gray-900">
           <p>Subtotal</p>
-          <p>$262.00</p>
+          <p>${totalPrice}</p>
+        </div>
+        <div className="flex justify-between text-base font-medium text-gray-900">
+          <p>Total Items</p>
+          <p>{totalItems} items</p>
         </div>
         <p className="mt-0.5 text-sm text-gray-500">
           Shipping and taxes calculated at checkout.

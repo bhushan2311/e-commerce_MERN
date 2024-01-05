@@ -2374,7 +2374,7 @@
         "https://i.dummyjson.com/data/products/2/3.jpg",
         "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
       ],
-      "quantity": 1,
+      "quantity": 2,
       "user": 1
     },
     {
@@ -2456,6 +2456,25 @@
         "https://i.dummyjson.com/data/products/40/2.jpg"
       ],
       "quantity": 1,
+      "user": 1
+    },
+    {
+      "id": 5,
+      "title": "Huawei P30",
+      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+      "price": 499,
+      "discountPercentage": 10.58,
+      "rating": 4.09,
+      "stock": 32,
+      "brand": "Huawei",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/5/1.jpg",
+        "https://i.dummyjson.com/data/products/5/2.jpg",
+        "https://i.dummyjson.com/data/products/5/3.jpg"
+      ],
+      "quantity": 2,
       "user": 1
     }
   ]
