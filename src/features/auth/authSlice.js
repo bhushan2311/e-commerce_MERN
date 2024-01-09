@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { checkUser, createUser} from './authAPI'
+import { checkUser, createUser, updateUser} from './authAPI'
 
 // the below is 'state.product' where the product is inside store
 const initialState = {
@@ -24,6 +24,14 @@ export const checkUserAsync = createAsyncThunk(
     'user/checkUser',
     async(loginInfo)=>{
         const response = await checkUser(loginInfo);
+        return response.data;
+    }
+)
+// --------------------------- Update user address ---------------------
+export const updateUserAsync = createAsyncThunk(
+    'user/updateUser',
+    async(update)=>{
+        const response = await updateUser(update);
         return response.data;
     }
 )
@@ -56,6 +64,14 @@ export const authSlice = createSlice({
             state.loggedInUser = action.payload;
           })
           .addCase(checkUserAsync.rejected, (state, action) => {
+            state.status = 'idle';
+            state.error = action.error;
+          })
+          .addCase(updateUserAsync.fulfilled, (state, action) => {
+            state.status = 'idle';
+            state.loggedInUser = action.payload;
+          })
+          .addCase(updateUserAsync.rejected, (state, action) => {
             state.status = 'idle';
             state.error = action.error;
           })
