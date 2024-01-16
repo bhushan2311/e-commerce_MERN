@@ -63,3 +63,15 @@ export function deleteFromCart(productId) {
   }
   );
 }
+
+export function resetCart(userId) {
+  return new Promise(async (resolve) =>{
+    const response = await fetchItemsbyUserId(userId);
+    const items = response.data;
+    for(let item of items){
+      await deleteFromCart(item.id);
+    }
+    resolve({status:"deleted-all"});
+  }
+  );
+}
