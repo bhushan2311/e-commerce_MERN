@@ -7,6 +7,7 @@ import {
   selectCartItems,
   deleteFromCartAsync,
   updateCartAsync,
+  resetCartAsync,
 } from "../features/cart/cartSlice";
 import {
   selectLoggedInUser,
@@ -109,6 +110,7 @@ function Checkout() {
       selectedAddress,
     };
     dispatch(createOrderAsync(order));
+    dispatch(resetCartAsync(user.id));    // to delete all items from cart as soon as the user placed order(click on order now)
     // here we are navigating user to order-success page only if there is currentOrder
   };
 
