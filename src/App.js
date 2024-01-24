@@ -17,6 +17,7 @@ import { selectLoggedInUser } from './features/auth/authSlice';
 import PageNotFound from './pages/404';
 import { OrderSuccessPage } from './pages/OrderSuccessPage';
 import { UserOrders } from './features/user/components/UserOrders';
+import UserProfilePage from './pages/UserProfilePage';
 // import UserOrdersPage from './pages/userOrdersPage';
 
 
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
     path:"/orders",
     // element:<UserOrderPage></UserOrderPage>  // time stamp: 4:53:35 not created file in page as UserOrderPage, see accordingly
     element:<UserOrders></UserOrders>  
+  },
+  {
+    path:"/profile",
+    element:<UserProfilePage></UserProfilePage>
   },
 ])
 
