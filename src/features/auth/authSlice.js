@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { checkUser, createUser} from './authAPI'
+import { checkUser, createUser, signOut} from './authAPI'
 import { updateUser } from '../user/userAPI';
 
 // the below is 'state.product' where the product is inside store
@@ -33,6 +33,14 @@ export const updateUserAsync = createAsyncThunk(
     'user/updateUser',
     async(update)=>{
         const response = await updateUser(update);
+        return response.data;
+    }
+)
+//  --------------- Signout loggedInUser --------------
+export const signOutAsnyc = createAsyncThunk(
+    'user/signOut',
+    async(usesrId)=>{
+        const response = await signOut(usesrId);
         return response.data;
     }
 )
@@ -73,6 +81,14 @@ export const authSlice = createSlice({
             state.loggedInUser = action.payload;
           })
           .addCase(updateUserAsync.rejected, (state, action) => {
+            state.status = 'idle';
+            state.error = action.error;
+          })
+          .addCase(signOutAsnyc.fulfilled, (state, action) => {
+            state.status = 'idle';
+            state.loggedInUser = null;
+          })
+          .addCase(signOutAsnyc.rejected, (state, action) => {
             state.status = 'idle';
             state.error = action.error;
           })
