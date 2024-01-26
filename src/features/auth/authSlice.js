@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { checkUser, createUser, updateUser} from './authAPI'
+import { checkUser, createUser} from './authAPI'
+import { updateUser } from '../user/userAPI';
 
 // the below is 'state.product' where the product is inside store
 const initialState = {

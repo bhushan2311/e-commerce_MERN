@@ -13,11 +13,13 @@ import Checkout from './pages/Checkout';
 import {Protected} from './features/auth/components/Protected';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchItemsbyUserIdAsync } from './features/cart/cartSlice';
-import { selectLoggedInUser } from './features/auth/authSlice';
 import PageNotFound from './pages/404';
 import { OrderSuccessPage } from './pages/OrderSuccessPage';
 import { UserOrders } from './features/user/components/UserOrders';
 import UserProfilePage from './pages/UserProfilePage';
+import { fetchLoggedInUserAsync, selectUserInfo } from './features/user/userSlice';
+import { selectLoggedInUser } from './features/auth/authSlice';
+import UserOrderPage from './pages/UserOrderPage';
 // import UserOrdersPage from './pages/userOrdersPage';
 
 
@@ -59,8 +61,8 @@ const router = createBrowserRouter([
   },
   {
     path:"/orders",
-    // element:<UserOrderPage></UserOrderPage>  // time stamp: 4:53:35 not created file in page as UserOrderPage, see accordingly
-    element:<UserOrders></UserOrders>  
+    element:<UserOrderPage></UserOrderPage>  // time stamp: 4:53:35 not created file in page as UserOrderPage, see accordingly
+    
   },
   {
     path:"/profile",
@@ -71,11 +73,12 @@ const router = createBrowserRouter([
 function App() {
 
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUser);   // selectLoggedInUser is used only to get id not the whole info and for whole info we will be using selectUserInfo
   console.log(user);
   useEffect(() => {
     if(user){
       dispatch(fetchItemsbyUserIdAsync(user.id));
+      dispatch(fetchLoggedInUserAsync(user.id));
     }
   }, [dispatch,user])
   

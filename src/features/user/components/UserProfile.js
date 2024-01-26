@@ -9,6 +9,14 @@ export function UserProfile() {
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const handleRemove = (e, index) => {
     // -------- here we are replacing whole user obj with new address array ---------
     const newUser = { ...user, address: [...user.address] };
@@ -20,6 +28,8 @@ export function UserProfile() {
     newAdress.splice(index,1);
     dispatch(updateUserAsync({...user,address:[...newAdress]}));*/
   };
+
+  // ------- Edit existing address ----------
   const handleEdit = (addressUpdate, index) => {
     const newUser = { ...user, address: [...user.address] };
     newUser.address.splice(index, 1, addressUpdate);
@@ -27,14 +37,6 @@ export function UserProfile() {
     setSelectedEditIndex(-1);
   };
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm();
 
   const editUseState = (index) => {
     setSelectedEditIndex(index);
@@ -48,11 +50,12 @@ export function UserProfile() {
     setValue("pincode", address.pincode);
   };
 
-  const handleNewAddress = (newAddress)=>{
+  // ------- Adding new address -------
+  const handleNewAddress = (newAddress) => {
     const newUser = { ...user, address: [...user.address, newAddress] };
     dispatch(updateUserAsync(newUser));
     setShowAddAddressForm(false);
-  }
+  };
 
   return (
     <div>
@@ -68,7 +71,10 @@ export function UserProfile() {
 
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
           <button
-            onClick={()=>{setShowAddAddressForm(true); setSelectedEditIndex(-1)}}
+            onClick={() => {
+              setShowAddAddressForm(true);
+              setSelectedEditIndex(-1);
+            }}
             type="button"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -264,12 +270,12 @@ export function UserProfile() {
           {user.address.map((add, index) => (
             <div>
               {selectedEditIndex === index ? (
+                // ----------------- form for editing address ---------------
                 <form
                   className="bg-white px-5 py-12 mt-12"
                   noValidate
-                  onSubmit={handleSubmit((data, index) => {
+                  onSubmit={handleSubmit((data) => {
                     {
-                      // console.log(data);
                       handleEdit(data, index);
                       reset();
                       console.log("--------user------", user);
@@ -438,6 +444,7 @@ export function UserProfile() {
                       </button>
                       <button
                         type="submit"
+                        // onClick={()=>console.log("Edit address index --", index)}
                         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         Edit Address
@@ -445,8 +452,8 @@ export function UserProfile() {
                     </div>
                   </div>
                 </form>
-              ) : null}
-              {/* --------------- above form ends here --------------- */}
+              ) : // {/* --------------- above form ends here --------------- */}
+              null}
               <div className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200">
                 <div className="flex gap-x-4">
                   <div className="min-w-0 flex-auto">
@@ -469,7 +476,9 @@ export function UserProfile() {
                 </div>
                 <div className="hidden sm:flex sm:flex-col sm:items-end">
                   <button
-                    onClick={() => editUseState(index)}
+                    onClick={() => {
+                      editUseState(index);
+                    }} // giving index as required
                     type="button"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
