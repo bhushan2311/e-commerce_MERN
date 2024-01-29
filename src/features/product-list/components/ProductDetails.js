@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {fetchAllProductByIdAsync, selectProductbyId} from '../productSlice';
 import { useParams } from 'react-router-dom';
 
-import {addToCartAsync} from '../../cart/cartSlice' 
+import {addToCartAsync, selectCartItems} from '../../cart/cartSlice' 
 
 import { selectLoggedInUser } from '../../auth/authSlice';
 
@@ -47,16 +47,22 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const params = useParams();   //can be used to access the URL parameters of a Route i.e the specific information/resource that is to be fetched when the page is to be rendered
   const user = useSelector(selectLoggedInUser);
+  const items = useSelector(selectCartItems);
   // console.log("hi",product);
   useEffect(() => {
     dispatch(fetchAllProductByIdAsync(params.id));     // why params.id? bcz we provided id after '/productDetails/:id'
   }, [dispatch, params.id])
   
   const handleCart = (e)=>{
+    if(items.findIndex(item=> item.productId === product.id)<0){
+      const newItem = {...product,productId:product.id, quantity:1,user:user.id};
+      delete newItem['id'];
+      dispatch(addToCartAsync(newItem));
+    }
+    else{
+      alert("This product is already added in your cart");
+    }
     e.preventDefault();
-    const newItem = {...product,quantity:1,user:user.id};
-    delete newItem['id'];
-    dispatch(addToCartAsync(newItem));
   }
 
   // in server data we will add color,size & highlights
