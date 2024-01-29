@@ -2361,44 +2361,90 @@
       ]
     },
     {
-      "email": "bambhore350@gmail.com",
-      "password": "Lee@3000",
-      "id": 2,
-      "address": []
-    },
-    {
-      "email": "bambhore350@gmail.com",
-      "password": "Asd@12345",
-      "id": 3,
-      "address": []
-    },
-    {
       "email": "nancy24@gmail.com",
       "password": "Ocean@14",
       "id": 4,
       "address": []
+    },
+    {
+      "email": "lizzie@gmail.com",
+      "password": "Lizzie@3000",
+      "address": [],
+      "id": 5
+    },
+    {
+      "email": "Olsen3000@gmail.com",
+      "password": "Abc@1234",
+      "address": [],
+      "id": 6
+    },
+    {
+      "email": "bambhore777@gmail.com",
+      "password": "Abc@1234",
+      "address": [],
+      "id": 7
     }
   ],
   "cart": [
     {
-      "title": "iPhone X",
-      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      "price": 899,
-      "discountPercentage": 17.94,
-      "rating": 4.44,
-      "stock": 34,
-      "brand": "Apple",
+      "title": "Samsung Universe 9",
+      "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+      "price": 1249,
+      "discountPercentage": 15.46,
+      "rating": 4.09,
+      "stock": 36,
+      "brand": "Samsung",
       "category": "smartphones",
-      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
       "images": [
-        "https://i.dummyjson.com/data/products/2/1.jpg",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg",
-        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+        "https://i.dummyjson.com/data/products/3/1.jpg"
       ],
+      "productId": 3,
       "quantity": 1,
       "user": 1,
       "id": 1
+    },
+    {
+      "title": "Money Heist Printed Summer T Shirts",
+      "description": "Fabric Jercy, Size: M & L Wear Stylish Dual Stiched",
+      "price": 66,
+      "discountPercentage": 15.97,
+      "rating": 4.9,
+      "stock": 122,
+      "brand": "The Warehouse",
+      "category": "mens-shirts",
+      "thumbnail": "https://i.dummyjson.com/data/products/55/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/55/1.jpg",
+        "https://i.dummyjson.com/data/products/55/2.webp",
+        "https://i.dummyjson.com/data/products/55/3.jpg",
+        "https://i.dummyjson.com/data/products/55/4.jpg",
+        "https://i.dummyjson.com/data/products/55/thumbnail.jpg"
+      ],
+      "productId": 55,
+      "quantity": 1,
+      "user": 1,
+      "id": 2
+    },
+    {
+      "title": "Huawei P30",
+      "description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+      "price": 499,
+      "discountPercentage": 10.58,
+      "rating": 4.09,
+      "stock": 32,
+      "brand": "Huawei",
+      "category": "smartphones",
+      "thumbnail": "https://i.dummyjson.com/data/products/5/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/5/1.jpg",
+        "https://i.dummyjson.com/data/products/5/2.jpg",
+        "https://i.dummyjson.com/data/products/5/3.jpg"
+      ],
+      "productId": 5,
+      "quantity": 1,
+      "user": 7,
+      "id": 3
     }
   ],
   "orders": [

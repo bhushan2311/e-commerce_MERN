@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
-import { selectLoggedInUser, createUserAsync } from "../authSlice";
+import { selectLoggedInUser, createUserAsync,selectError } from "../authSlice";
 import { Navigate } from "react-router-dom";
 // import { increment, incrementByAmount, selectCount } from "./counterSlice";
 // import { Link } from "react-router-dom";
 export function Signup() {
-  //   const count = useSelector(selectCount);
 
   const {
     register,
@@ -21,9 +20,15 @@ export function Signup() {
   const user = useSelector(selectLoggedInUser);
   console.log(errors);
 
+  const showError = useSelector(selectError);
+  useEffect(() => {
+    if (showError) {
+      alert("Email already exist!!");
+    }
+  }, [showError])
   return (
     <>
-    {user && <Navigate to='/' replace={true}/>}
+      {user && <Navigate to="/" replace={true} />}
       {user?.email}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -47,11 +52,10 @@ export function Signup() {
                   createUserAsync({
                     email: data.email,
                     password: data.password,
-                    address:[]
+                    address: [],
                   })
                 );
               }
-              console.log(data);
             })}
           >
             <div>

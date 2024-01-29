@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { checkUserAsync } from "../authSlice";
@@ -16,14 +16,22 @@ export function Login() {
   } = useForm()
   
     const dispatch = useDispatch();
+    const showError = useSelector(selectError);
   
     const error = useSelector(selectLoggedInUser);
     const user = useSelector(selectLoggedInUser);
     console.log(errors);
 
+    useEffect(() => {
+      if (showError) {
+        alert("Invalid username or password");
+      }
+    }, [showError])
+    
+
   return (
     <>
-      {user && <Navigate to='/' replace={true}/>}       {/* if credential are correct it will navigate to home page */}
+       {user && <Navigate to='/' replace={true}/>}      {/* if credential are correct it will navigate to home page */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -39,7 +47,7 @@ export function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form noValidate className="space-y-6"  onSubmit={handleSubmit((data)=>{
             {dispatch(checkUserAsync({email:data.email,password:data.password}))}
-            // console.log(data);
+            
           })}>
             <div>
               <label

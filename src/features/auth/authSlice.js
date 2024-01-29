@@ -65,6 +65,10 @@ export const authSlice = createSlice({
             state.status = 'idle';
             state.loggedInUser = action.payload;
           })
+          .addCase(createUserAsync.rejected, (state, action) => {
+            state.status = 'idle';
+            state.error = action.error;
+          })
           .addCase(checkUserAsync.pending, (state) => {
             state.status = 'loading';
           })
