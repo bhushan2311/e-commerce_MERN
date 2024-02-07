@@ -103,7 +103,7 @@ function Checkout() {
 
   const handleOrder = (e) => {
     const order = {
-      user,
+      user:user.id,   // for dummy api it was user only. why user:user.id? bcz we r expecting user.id to store in database
       items,
       totalItems,
       totalPrice,

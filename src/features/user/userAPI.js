@@ -1,10 +1,16 @@
 export function fetchLoggedInUserOrders(userId) {
-  return new Promise(async (resolve) =>{
-    const response = await fetch('http://localhost:8080/orders/?user.id='+userId)
-    const data = await response.json();
-    resolve({data})
-  }
-  );
+  return new Promise(async (resolve,reject) => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/orders?user=" + userId       // for dummy api 'http://localhost:8080/orders/?user.id='
+      );
+      const data = await response.json();
+      console.log("fetch user order-",data);
+      resolve({ data });
+    } catch (error) {
+      reject({ error: "couldnt fetch order" });
+    }
+  });
 }
 
 export function fetchLoggedInUser(userId) {
