@@ -181,8 +181,9 @@ const Navbar = ({ children }) => {
                         // alt=""
                       />
                     </div>
-                    <div className="ml-3">
+                    <div className="ml-3"> 
                       <div className="text-base font-medium leading-none text-white">
+              {/* this user.name should come from selectUserInfo selector */}
                         {user.name}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">

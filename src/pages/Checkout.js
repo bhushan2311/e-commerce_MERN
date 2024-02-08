@@ -9,12 +9,9 @@ import {
   updateCartAsync,
   resetCartAsync,
 } from "../features/cart/cartSlice";
-import {
-  selectLoggedInUser,
-  updateUserAsync,
-} from "../features/auth/authSlice";
+
 import { createOrderAsync, selectCurrentOrder } from "../features/order/orderSlice";
-import { selectUserInfo } from "../features/user/userSlice";
+import { selectUserInfo, updateUserAsync } from "../features/user/userSlice";
 
 const products = [
   {

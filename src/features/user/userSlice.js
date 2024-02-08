@@ -50,13 +50,14 @@ export const userSlice = createSlice({
         state.status = 'idle';
         // this info can be different or more from logged-in user info
         state.userOrders = action.payload;
+        state.userInfo.orders = action.payload;
       })
       .addCase(updateUserAsync.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(updateUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.userOrders = action.payload;
+        state.userInfo = action.payload;
       })
       .addCase(fetchLoggedInUserAsync.pending, (state) => {
         state.status = 'loading';
@@ -70,7 +71,8 @@ export const userSlice = createSlice({
 
 // export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
-export const selectUserOrders = (state) => state.user.userOrders;
+// export const selectUserOrders = (state) => state.user.userOrders;      // we are not considering userOrders when using backend, it was used at the time of dummy api
+export const selectUserOrders = (state) => state.user.userInfo.orders;
 export const selectUserInfo = (state) => state.user.userInfo;
 
 
