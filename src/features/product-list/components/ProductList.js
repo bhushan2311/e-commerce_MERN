@@ -498,6 +498,7 @@ function Pagination({ page, setPage, totalItems, handlePage }) {
               (el, index) => {
                 return (
                   <div
+                    key={index}
                     href="#"
                     onClick={(e) => handlePage(e, index + 1)}
                     aria-current="page"
