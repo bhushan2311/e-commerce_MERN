@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {fetchAllProductByIdAsync, selectProductbyId} from '../productSlice';
 import { useParams } from 'react-router-dom';
 
-import {addToCartAsync, selectCartItems} from '../../cart/cartSlice' 
-
-import { selectLoggedInUser } from '../../auth/authSlice';
-
+import {addToCartAsync, selectCartItems} from '../../cart/cartSlice';
 
 const colors= [
   { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
@@ -46,7 +43,6 @@ export default function ProductDetails() {
   const product = useSelector(selectProductbyId);
   const dispatch = useDispatch();
   const params = useParams();   //can be used to access the URL parameters of a Route i.e the specific information/resource that is to be fetched when the page is to be rendered
-  const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectCartItems);
   // console.log("hi",product);
   useEffect(() => {
@@ -55,7 +51,7 @@ export default function ProductDetails() {
   
   const handleCart = (e)=>{
     if(items.findIndex(item=> item.product.id === product.id)<0){
-      const newItem = {product:product.id, quantity:1,user:user.id};
+      const newItem = {product:product.id, quantity:1};
       dispatch(addToCartAsync(newItem));
     }
     else{

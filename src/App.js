@@ -83,12 +83,12 @@ const router = createBrowserRouter([
 function App() {
 
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);   // selectLoggedInUser is used only to get id not the whole info and for whole info we will be using selectUserInfo
+  const user = useSelector(selectLoggedInUser);   // selectLoggedInUser is used only to get token(changed id to token) not the whole info and for whole info we will be using selectUserInfo
   console.log(user);
   useEffect(() => {
     if(user){
-      dispatch(fetchItemsbyUserIdAsync(user.id));
-      dispatch(fetchLoggedInUserAsync(user.id));
+      dispatch(fetchItemsbyUserIdAsync());
+      dispatch(fetchLoggedInUserAsync());  // we can get req.user by token on backend so no need to give in frontend
     }
   }, [dispatch,user])
   

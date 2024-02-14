@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { selectCartItems } from "../cart/cartSlice";
 import { useSelector } from "react-redux";
+import { selectUserInfo } from "../user/userSlice";
 
 const user = {
   name: "Tom Cook",
@@ -34,9 +35,11 @@ function classNames(...classes) {
 
 const Navbar = ({ children }) => {
   const items = useSelector(selectCartItems);
+  const userInfo = useSelector(selectUserInfo);
+
   return (
     <>
-      <div className="min-h-full">
+      {userInfo && <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -177,17 +180,17 @@ const Navbar = ({ children }) => {
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
-                        // src={user.imageUrl}
+                        // src={userInfo.imageUrl}
                         // alt=""
                       />
                     </div>
                     <div className="ml-3"> 
                       <div className="text-base font-medium leading-none text-white">
               {/* this user.name should come from selectUserInfo selector */}
-                        {user.name}
+                        {userInfo.name}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">
-                        {user.email}
+                        {userInfo.email}
                       </div>
                     </div>
                     <Link to="/cart">
@@ -239,7 +242,7 @@ const Navbar = ({ children }) => {
             {children}
           </div>
         </main>
-      </div>
+      </div>}
     </>
   );
 };

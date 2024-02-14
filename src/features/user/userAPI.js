@@ -13,9 +13,9 @@ export function fetchLoggedInUserOrders(userId) {
   });
 }
 
-export function fetchLoggedInUser(userId) {
+export function fetchLoggedInUser() {
   return new Promise(async (resolve) =>{
-    const response = await fetch('http://localhost:8080/users/'+userId)
+    const response = await fetch('http://localhost:8080/users/own')
     const data = await response.json();
     console.log("logged in user - ", data);
     resolve({data})
