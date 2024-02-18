@@ -1,8 +1,8 @@
-export function fetchLoggedInUserOrders(userId) {
+export function fetchLoggedInUserOrders() {
   return new Promise(async (resolve,reject) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/orders?user=" + userId       // for dummy api 'http://localhost:8080/orders/?user.id='
+        "http://localhost:8080/orders/own/"       // for dummy api 'http://localhost:8080/orders/?user.id='
       );
       const data = await response.json();
       console.log("fetch user order-",data);

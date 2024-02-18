@@ -5,18 +5,16 @@ import Navbar from "../../navbar/Navbar";
 
 export function UserOrders() {
   const dispatch = useDispatch();
-
-  const user = useSelector(selectUserInfo);
   const orders = useSelector(selectUserOrders);
 
   useEffect(() => {
     // fetching logged in user orders as soon as user logged in..
-    dispatch(fetchLoggedInUserOrdersAsync(user.id));
+    dispatch(fetchLoggedInUserOrdersAsync());
   }, []);
 
   return (
     <div>
-      {orders.map((order) => (
+      {orders && orders.map((order) => (
         <div>
           
             <div>
