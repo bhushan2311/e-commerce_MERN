@@ -18,7 +18,7 @@ import { OrderSuccessPage } from './pages/OrderSuccessPage';
 import { UserOrders } from './features/user/components/UserOrders';
 import UserProfilePage from './pages/UserProfilePage';
 import { fetchLoggedInUserAsync, selectUserInfo } from './features/user/userSlice';
-import { selectLoggedInUser } from './features/auth/authSlice';
+import { checkAuthAsync, selectLoggedInUser, selectuserChecked } from './features/auth/authSlice';
 import UserOrderPage from './pages/UserOrderPage';
 import Logout from './features/auth/components/Logout';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
@@ -85,6 +85,12 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);   // selectLoggedInUser is used only to get token(changed id to token) not the whole info and for whole info we will be using selectUserInfo
   console.log(user);
+  const userChecked = useSelector(selectuserChecked);
+
+  useEffect(()=>{
+    dispatch(checkAuthAsync());
+  },[])
+
   useEffect(() => {
     if(user){
       dispatch(fetchItemsbyUserIdAsync());
@@ -98,7 +104,7 @@ function App() {
       {/* <Home/> */}
       {/* <LoginPage></LoginPage> */}
       {/* <SignupPage></SignupPage> */}
-      <RouterProvider router={router}/>
+      {userChecked && <RouterProvider router={router}/>}
     </div>
   );
 }

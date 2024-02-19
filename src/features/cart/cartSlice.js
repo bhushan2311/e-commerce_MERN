@@ -5,6 +5,7 @@ import { fetchItemsbyUserId,deleteFromCart,updateCart,resetCart } from './cartAP
 const initialState = {
   items: [],
   status: 'idle',
+  cartLoaded: false           // ensures items fetch to the cart from api
 };
 
 export const addToCartAsync = createAsyncThunk(
@@ -75,6 +76,11 @@ export const counterSlice = createSlice({
       .addCase(fetchItemsbyUserIdAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.items = action.payload;
+        state.cartLoaded = true;    // respond send as cart loaded
+      })
+      .addCase(fetchItemsbyUserIdAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.cartLoaded = true;    // respond send as cart not loaded  (sending response means true weather response is fulfilled or rejected)
       })
       .addCase(deleteFromCartAsync.pending, (state) => {
         state.status = 'loading';
@@ -103,6 +109,6 @@ export const counterSlice = createSlice({
 });
 
 export const selectCartItems = (state) => state.cart.items;
-
+export const selectCartLoaded = (state) => state.cart.cartLoaded;
 
 export default counterSlice.reducer;
