@@ -1,64 +1,66 @@
-import { useState, useEffect } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from "react";
+import { StarIcon } from "@heroicons/react/20/solid";
+import { RadioGroup } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {fetchAllProductByIdAsync, selectProductbyId} from '../productSlice';
-import { useParams } from 'react-router-dom';
+import { fetchAllProductByIdAsync, selectProductbyId } from "../productSlice";
+import { useParams } from "react-router-dom";
 
-import {addToCartAsync, selectCartItems} from '../../cart/cartSlice';
+import { addToCartAsync, selectCartItems } from "../../cart/cartSlice";
 
-const colors= [
-  { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-  { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-  { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+import { useAlert } from "react-alert";
+
+const colors = [
+  { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
+  { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
+  { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
 ];
-const sizes= [
-  { name: 'XXS', inStock: false },
-  { name: 'XS', inStock: true },
-  { name: 'S', inStock: true },
-  { name: 'M', inStock: true },
-  { name: 'L', inStock: true },
-  { name: 'XL', inStock: true },
-  { name: '2XL', inStock: true },
-  { name: '3XL', inStock: true },
+const sizes = [
+  { name: "XXS", inStock: false },
+  { name: "XS", inStock: true },
+  { name: "S", inStock: true },
+  { name: "M", inStock: true },
+  { name: "L", inStock: true },
+  { name: "XL", inStock: true },
+  { name: "2XL", inStock: true },
+  { name: "3XL", inStock: true },
 ];
-
 
 const highlights = [
-  'Hand cut and sewn locally',
-  'Dyed with our proprietary colors',
-  'Pre-washed & pre-shrunk',
-  'Ultra-soft 100% cotton',
-]
+  "Hand cut and sewn locally",
+  "Dyed with our proprietary colors",
+  "Pre-washed & pre-shrunk",
+  "Ultra-soft 100% cotton",
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductDetails() {
-  const [selectedColor, setSelectedColor] = useState(colors[0])
-  const [selectedSize, setSelectedSize] = useState(sizes[2])
+  const alert = useAlert();
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedSize, setSelectedSize] = useState(sizes[2]);
 
   const product = useSelector(selectProductbyId);
   const dispatch = useDispatch();
-  const params = useParams();   //can be used to access the URL parameters of a Route i.e the specific information/resource that is to be fetched when the page is to be rendered
+  const params = useParams(); //can be used to access the URL parameters of a Route i.e the specific information/resource that is to be fetched when the page is to be rendered
   const items = useSelector(selectCartItems);
   // console.log("hi",product);
   useEffect(() => {
-    dispatch(fetchAllProductByIdAsync(params.id));     // why params.id? bcz we provided id after '/productDetails/:id'
-  }, [dispatch, params.id])
-  
-  const handleCart = (e)=>{
-    if(items.findIndex(item=> item.product.id === product.id)<0){
-      const newItem = {product:product.id, quantity:1};
+    dispatch(fetchAllProductByIdAsync(params.id)); // why params.id? bcz we provided id after '/productDetails/:id'
+  }, [dispatch, params.id]);
+
+  const handleCart = (e) => {
+    if (items.findIndex((item) => item.product.id === product.id) < 0) {
+      const newItem = { product: product.id, quantity: 1 };
       dispatch(addToCartAsync(newItem));
-    }
-    else{
-      alert("This product is already added in your cart");
+      alert.success("Item added in your cart");
+    } else {
+      alert.show("Item is already added!");
     }
     e.preventDefault();
-  }
+  };
 
   // in server data we will add color,size & highlights
   return (
@@ -151,7 +153,7 @@ export default function ProductDetails() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-               ${product.price}
+                ${product.price}
               </p>
 
               {/* Reviews */}
@@ -164,9 +166,9 @@ export default function ProductDetails() {
                         key={rating}
                         className={classNames(
                           product.rating > rating
-                            ? 'text-gray-900'
-                            : 'text-gray-200',
-                          'h-5 w-5 flex-shrink-0'
+                            ? "text-gray-900"
+                            : "text-gray-200",
+                          "h-5 w-5 flex-shrink-0"
                         )}
                         aria-hidden="true"
                       />
@@ -197,9 +199,9 @@ export default function ProductDetails() {
                           className={({ active, checked }) =>
                             classNames(
                               color.selectedClass,
-                              active && checked ? 'ring ring-offset-1' : '',
-                              !active && checked ? 'ring-2' : '',
-                              'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
+                              active && checked ? "ring ring-offset-1" : "",
+                              !active && checked ? "ring-2" : "",
+                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
                             )
                           }
                         >
@@ -210,7 +212,7 @@ export default function ProductDetails() {
                             aria-hidden="true"
                             className={classNames(
                               color.class,
-                              'h-8 w-8 rounded-full border border-black border-opacity-10'
+                              "h-8 w-8 rounded-full border border-black border-opacity-10"
                             )}
                           />
                         </RadioGroup.Option>
@@ -248,10 +250,10 @@ export default function ProductDetails() {
                           className={({ active }) =>
                             classNames(
                               size.inStock
-                                ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                                : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                              active ? 'ring-2 ring-indigo-500' : '',
-                              'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
+                                ? "cursor-pointer bg-white text-gray-900 shadow-sm"
+                                : "cursor-not-allowed bg-gray-50 text-gray-200",
+                              active ? "ring-2 ring-indigo-500" : "",
+                              "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
                             )
                           }
                         >
@@ -263,11 +265,11 @@ export default function ProductDetails() {
                               {size.inStock ? (
                                 <span
                                   className={classNames(
-                                    active ? 'border' : 'border-2',
+                                    active ? "border" : "border-2",
                                     checked
-                                      ? 'border-indigo-500'
-                                      : 'border-transparent',
-                                    'pointer-events-none absolute -inset-px rounded-md'
+                                      ? "border-indigo-500"
+                                      : "border-transparent",
+                                    "pointer-events-none absolute -inset-px rounded-md"
                                   )}
                                   aria-hidden="true"
                                 />
@@ -301,12 +303,19 @@ export default function ProductDetails() {
                 </div>
 
                 <button
-                onClick={handleCart}
+                  onClick={handleCart}
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Cart
                 </button>
+                {/* <button
+                  onClick={(e) => {
+                    alert.show("Oh look, an alert!");
+                  }}
+                >
+                  Show Alert
+                </button> */}
               </form>
             </div>
 
@@ -330,10 +339,10 @@ export default function ProductDetails() {
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                     {highlights.map((highlight) => (
-                        <li key={highlight} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
+                      <li key={highlight} className="text-gray-400">
+                        <span className="text-gray-600">{highlight}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -350,5 +359,5 @@ export default function ProductDetails() {
         </div>
       )}
     </div>
-  )
+  );
 }

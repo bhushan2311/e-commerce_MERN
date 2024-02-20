@@ -6,8 +6,9 @@ import { selectLoggedInUser, createUserAsync,selectError } from "../authSlice";
 import { Navigate } from "react-router-dom";
 // import { increment, incrementByAmount, selectCount } from "./counterSlice";
 // import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
 export function Signup() {
-
+  const alert = useAlert();
   const {
     register,
     handleSubmit,
@@ -23,7 +24,8 @@ export function Signup() {
   const showError = useSelector(selectError);
   useEffect(() => {
     if (showError) {
-      alert("Email already exist!!");
+      // alert("Email already exist!!");
+      alert.error("Email already exist!!");
     }
   }, [showError])
   return (
@@ -33,8 +35,8 @@ export function Signup() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            className="mx-auto h-20 w-auto"
+            src="/shopee.png"
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

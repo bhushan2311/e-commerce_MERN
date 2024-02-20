@@ -6,7 +6,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { selectCartItems,deleteFromCartAsync,updateCartAsync, selectCartLoaded } from "./cartSlice";
 import { Navigate } from "react-router-dom";
-
+import { useAlert } from "react-alert";
 const products = [
   {
     id: 1,
@@ -35,6 +35,9 @@ const products = [
   // More products...
 ];
 export default function Cart() {
+
+  const alert = useAlert();
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
@@ -43,6 +46,7 @@ export default function Cart() {
 
   const handleRemove = (e,id)=>{
     dispatch(deleteFromCartAsync(id));
+    alert.show('Item removed from cart')
   }
 
   const updateCart = (e,item)=>{
