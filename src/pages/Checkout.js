@@ -8,10 +8,16 @@ import {
   deleteFromCartAsync,
   updateCartAsync,
   resetCartAsync,
+  selectCartStatus,
 } from "../features/cart/cartSlice";
 
-import { createOrderAsync, selectCurrentOrder } from "../features/order/orderSlice";
+import {
+  createOrderAsync,
+  selectCurrentOrder,
+} from "../features/order/orderSlice";
 import { selectUserInfo, updateUserAsync } from "../features/user/userSlice";
+
+import { Oval } from "react-loader-spinner";
 
 const products = [
   {
@@ -73,6 +79,8 @@ function Checkout() {
 
   const items = useSelector(selectCartItems);
 
+  const status = useSelector(selectCartStatus);
+
   const [selectedAddress, setSelectedAddress] = useState();
   const [paymentMethod, setpaymentMethod] = useState("cash");
 
@@ -85,7 +93,7 @@ function Checkout() {
   };
 
   const updateCart = (e, item) => {
-    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
 
   const handleAddress = (e) => {
@@ -100,7 +108,7 @@ function Checkout() {
 
   const handleOrder = (e) => {
     const order = {
-      user:user.id,   // for dummy api it was user only. why user:user.id? bcz we r expecting user.id to store in database
+      user: user.id, // for dummy api it was user only. why user:user.id? bcz we r expecting user.id to store in database
       items,
       totalItems,
       totalPrice,
@@ -108,14 +116,19 @@ function Checkout() {
       selectedAddress,
     };
     dispatch(createOrderAsync(order));
-    dispatch(resetCartAsync(user.id));    // to delete all items from cart as soon as the user placed order(click on order now)
+    dispatch(resetCartAsync(user.id)); // to delete all items from cart as soon as the user placed order(click on order now)
     // here we are navigating user to order-success page only if there is currentOrder
   };
 
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
-      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}   
+      {currentOrder && (
+        <Navigate
+          to={`/order-success/${currentOrder.id}`}
+          replace={true}
+        ></Navigate>
+      )}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
@@ -311,6 +324,19 @@ function Checkout() {
                     Choose from Existing addresses
                   </p>
                   <ul role="list">
+                  <div className="flex justify-center items-center col-span-3">
+                      {status === "loading" ? (
+                        <Oval
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="black"
+                          ariaLabel="oval-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                      ) : null}
+                    </div>
                     {user.address.map((address, index) => (
                       <li
                         key={index}
@@ -407,6 +433,19 @@ function Checkout() {
                 </h1>
                 <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
+                    <div className="flex justify-center items-center col-span-3">
+                      {status === "loading" ? (
+                        <Oval
+                          visible={true}
+                          height="80"
+                          width="80"
+                          color="black"
+                          ariaLabel="oval-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                      ) : null}
+                    </div>
                     {items.map((item) => (
                       <li key={item.id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -420,7 +459,9 @@ function Checkout() {
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href={item.product.href}>{item.product.title}</a>
+                                <a href={item.product.href}>
+                                  {item.product.title}
+                                </a>
                               </h3>
                               <p className="ml-4">${item.product.price}</p>
                             </div>

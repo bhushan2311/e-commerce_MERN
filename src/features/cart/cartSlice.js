@@ -110,5 +110,6 @@ export const counterSlice = createSlice({
 
 export const selectCartItems = (state) => state.cart.items;
 export const selectCartLoaded = (state) => state.cart.cartLoaded;
+export const selectCartStatus = (state) => state.cart.status;
 
 export default counterSlice.reducer;

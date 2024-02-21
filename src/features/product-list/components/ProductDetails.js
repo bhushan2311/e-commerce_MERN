@@ -3,12 +3,13 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchAllProductByIdAsync, selectProductbyId } from "../productSlice";
+import { fetchAllProductByIdAsync, selectProductListStatus, selectProductbyId } from "../productSlice";
 import { useParams } from "react-router-dom";
 
 import { addToCartAsync, selectCartItems } from "../../cart/cartSlice";
 
 import { useAlert } from "react-alert";
+import { Oval } from "react-loader-spinner";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -42,6 +43,8 @@ export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
 
+  const status = useSelector(selectProductListStatus);
+
   const product = useSelector(selectProductbyId);
   const dispatch = useDispatch();
   const params = useParams(); //can be used to access the URL parameters of a Route i.e the specific information/resource that is to be fetched when the page is to be rendered
@@ -65,6 +68,19 @@ export default function ProductDetails() {
   // in server data we will add color,size & highlights
   return (
     <div className="bg-white">
+      <div className="flex justify-center items-center col-span-3">
+            {status === "loading" ? (
+              <Oval
+                visible={true}
+                height="80"
+                width="80"
+                color="black"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : null}
+          </div>
       {product && (
         <div className="pt-6">
           <nav aria-label="Breadcrumb">

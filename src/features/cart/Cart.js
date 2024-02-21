@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { selectCartItems,deleteFromCartAsync,updateCartAsync, selectCartLoaded } from "./cartSlice";
+import { selectCartItems,deleteFromCartAsync,updateCartAsync, selectCartLoaded, selectCartStatus } from "./cartSlice";
 import { Navigate } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { Oval } from "react-loader-spinner";
+
 const products = [
   {
     id: 1,
@@ -37,6 +39,7 @@ const products = [
 export default function Cart() {
 
   const alert = useAlert();
+  const status = useSelector(selectCartStatus);
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
@@ -67,6 +70,19 @@ export default function Cart() {
             </h1>
             <div className="flow-root">
               <ul role="list" className="-my-6 divide-y divide-gray-200">
+              <div className="flex justify-center items-center col-span-3">
+            {status === "loading" ? (
+              <Oval
+                visible={true}
+                height="80"
+                width="80"
+                color="black"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : null}
+          </div>
                 {items.map((item) => (
                   <li key={item.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">

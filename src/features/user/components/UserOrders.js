@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoggedInUserOrdersAsync, selectUserInfo, selectUserOrders } from "../userSlice";
+import {
+  fetchLoggedInUserOrdersAsync,
+  selectUserInfo,
+  selectUserOrders,
+  selectUserStatus,
+} from "../userSlice";
 import Navbar from "../../navbar/Navbar";
-
+import { Oval } from "react-loader-spinner";
 export function UserOrders() {
   const dispatch = useDispatch();
   const orders = useSelector(selectUserOrders);
+  const status = useSelector(selectUserStatus);
 
   useEffect(() => {
     // fetching logged in user orders as soon as user logged in..
@@ -14,9 +20,22 @@ export function UserOrders() {
 
   return (
     <div>
-      {orders && orders.map((order) => (
-        <div>
-          
+      <div className="flex justify-center items-center col-span-3">
+        {status === "loading" ? (
+          <Oval
+            visible={true}
+            height="80"
+            width="80"
+            color="black"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        ) : null}
+      </div>
+      {orders &&
+        orders.map((order) => (
+          <div>
             <div>
               <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -42,7 +61,9 @@ export function UserOrders() {
                             <div>
                               <div className="flex justify-between text-base font-medium text-gray-900">
                                 <h3>
-                                  <a href={item.product.href}>{item.product.title}</a>
+                                  <a href={item.product.href}>
+                                    {item.product.title}
+                                  </a>
                                 </h3>
                                 <p className="ml-4">${item.product.price}</p>
                               </div>
@@ -107,9 +128,8 @@ export function UserOrders() {
                 </div>
               </div>
             </div>
-          
-        </div>
-      ))}
+          </div>
+        ))}
     </div>
   );
 }

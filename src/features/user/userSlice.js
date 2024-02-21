@@ -74,6 +74,7 @@ export const userSlice = createSlice({
 // export const selectUserOrders = (state) => state.user.userOrders;      // we are not considering userOrders when using backend, it was used at the time of dummy api
 export const selectUserOrders = (state) => state.user.userInfo.orders;
 export const selectUserInfo = (state) => state.user.userInfo;
+export const selectUserStatus = (state) => state.user.status;
 
 
 export default userSlice.reducer;

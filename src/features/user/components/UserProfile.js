@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserInfo, updateUserAsync } from "../userSlice";
+import { selectUserInfo, selectUserStatus, updateUserAsync } from "../userSlice";
 import { useForm } from "react-hook-form";
+import { Oval } from "react-loader-spinner";
+
 
 export function UserProfile() {
   const dispatch = useDispatch();
   const user = useSelector(selectUserInfo);
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
+  
+  const status = useSelector(selectUserStatus);
 
   const {
     register,
@@ -267,6 +271,19 @@ export function UserProfile() {
           {/* --------- End Add New Address Form -----------*/}
 
           <p className="mt-0.5 text-sm text-gray-500">Your Address :</p>
+          <div className="flex justify-center items-center col-span-3">
+            {status === "loading" ? (
+              <Oval
+                visible={true}
+                height="80"
+                width="80"
+                color="black"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : null}
+          </div>
           {user.address.map((add, index) => (
             <div>
               {selectedEditIndex === index ? (
