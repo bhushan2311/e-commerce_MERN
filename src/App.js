@@ -32,6 +32,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 // import UserOrdersPage from './pages/userOrdersPage';
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import Footer from "./features/common/Footer";
 
 const options = {
   timeout: 5000,
@@ -123,13 +124,14 @@ function App() {
   }, [dispatch, user]);
 
   return (
-    <div className="App">
+    <div className="App bg-gray-100">
       {/* <Home/> */}
       {/* <LoginPage></LoginPage> */}
       {/* <SignupPage></SignupPage> */}
       <Provider template={AlertTemplate} {...options}>
         {userChecked && <RouterProvider router={router} />}
       </Provider>
+      <Footer></Footer>
     </div>
   );
 }
