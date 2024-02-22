@@ -56,22 +56,35 @@ function Footer() {
             </div>
           </nav> */}
           <div className="flex justify-center mt-8 space-x-6">
-            <a href="#" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Facebook</span>
+            <a
+              href="https://linkedin.com/in/bhushan2311"
+              className="text-gray-400 hover:text-gray-500"
+            >
+              <span className="sr-only">Linkedin</span>
               <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                  clipRule="evenodd"
-                />
-              </svg>
+  className="w-6 h-6"
+  aria-hidden="true"
+  fill="currentColor"
+  viewBox="0 0 24 24"
+>
+  <path
+    fillRule="evenodd"
+    clipRule="evenodd"
+    d="M20 2H4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V4a2 2 0 00-2-2zM8.797 18.997H6V10.299h2.797v8.698H8.797zM7.398 9.198a1.204 1.204 0 110-2.408 1.204 1.204 0 010 2.408zM18 18.997h-2.799v-4.947c0-1.185-.023-2.71-1.648-2.71-1.648 0-1.903 1.289-1.903 2.619v5.038H9.75V10.299h2.582v1.391h.039c.36-.683 1.243-1.402 2.544-1.402 2.725 0 3.231 1.792 3.231 4.121v4.579H18v.001z"
+  />
+</svg>
+
+
+
+
+
+
+
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500">
+            <a
+              href="https://www.instagram.com/an_extraordinary_/?next=%2Fan_extraordinary%2F"
+              className="text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">Instagram</span>
               <svg
                 className="w-6 h-6"
@@ -86,7 +99,10 @@ function Footer() {
                 />
               </svg>
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500">
+            <a
+              href="https://twitter.com/BAmbhore26327"
+              className="text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">Twitter</span>
               <svg
                 className="w-6 h-6"
@@ -94,10 +110,13 @@ function Footer() {
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
- <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500">
+            <a
+              href="https://github.com/bhushan2311"
+              className="text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">GitHub</span>
               <svg
                 className="w-6 h-6"
@@ -112,7 +131,6 @@ function Footer() {
                 />
               </svg>
             </a>
-            
           </div>
           <p className="text-base leading-6 text-center text-gray-400">
             Made with ❤️ by Bhushan Ambhore

@@ -4,7 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { selectCartItems,deleteFromCartAsync,updateCartAsync, selectCartLoaded, selectCartStatus } from "./cartSlice";
+import {
+  selectCartItems,
+  deleteFromCartAsync,
+  updateCartAsync,
+  selectCartLoaded,
+  selectCartStatus,
+} from "./cartSlice";
 import { Navigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Oval } from "react-loader-spinner";
@@ -37,7 +43,6 @@ const products = [
   // More products...
 ];
 export default function Cart() {
-
   const alert = useAlert();
   const status = useSelector(selectCartStatus);
 
@@ -47,21 +52,26 @@ export default function Cart() {
   const items = useSelector(selectCartItems);
   const isCartLoaded = useSelector(selectCartLoaded);
 
-  const handleRemove = (e,id)=>{
+  const handleRemove = (e, id) => {
     dispatch(deleteFromCartAsync(id));
-    alert.show('Item removed from cart')
-  }
+    alert.show("Item removed from cart");
+  };
 
-  const updateCart = (e,item)=>{
-    dispatch(updateCartAsync({id:item.id, quantity:+e.target.value}));
-  }
+  const updateCart = (e, item) => {
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
+  };
 
-  const totalPrice = items.reduce((amount,item)=> amount + item.product.price*item.quantity,0);
-  const totalItems = items.reduce((total,item) => total + item.quantity,0);
+  const totalPrice = items.reduce(
+    (amount, item) => amount + item.product.price * item.quantity,
+    0
+  );
+  const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
-    {!items.length && isCartLoaded && <Navigate to="/" replace={true}></Navigate>}
+      {!items.length && isCartLoaded && (
+        <Navigate to="/" replace={true}></Navigate>
+      )}
       <div>
         <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -70,19 +80,19 @@ export default function Cart() {
             </h1>
             <div className="flow-root">
               <ul role="list" className="-my-6 divide-y divide-gray-200">
-              <div className="flex justify-center items-center col-span-3">
-            {status === "loading" ? (
-              <Oval
-                visible={true}
-                height="80"
-                width="80"
-                color="black"
-                ariaLabel="oval-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
-            ) : null}
-          </div>
+                {status === "loading" ? (
+                  <div className="flex justify-center items-center col-span-3">
+                    <Oval
+                      visible={true}
+                      height="80"
+                      width="80"
+                      color="black"
+                      ariaLabel="oval-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  </div>
+                ) : null}
                 {items.map((item) => (
                   <li key={item.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -112,7 +122,10 @@ export default function Cart() {
                           >
                             Qty
                           </label>
-                          <select onChange={(e) => updateCart(e, item)} value={item.quantity}>
+                          <select
+                            onChange={(e) => updateCart(e, item)}
+                            value={item.quantity}
+                          >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -121,7 +134,7 @@ export default function Cart() {
 
                         <div className="flex">
                           <button
-                            onClick={e=>handleRemove(e,item.id)}
+                            onClick={(e) => handleRemove(e, item.id)}
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
@@ -157,13 +170,13 @@ export default function Cart() {
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
-                or
+                or{" "}
                 <Link to="/">
                   <button
                     type="button"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    Continue Shopping
+                     Continue Shopping
                     <span aria-hidden="true"> &rarr;</span>
                   </button>
                 </Link>

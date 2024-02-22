@@ -7,7 +7,9 @@ function UserProfilePage() {
     <>
       <div>
         <Navbar>
-            <h1 className='mx-auto text-2xl'>My Profile</h1>
+        <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
+            My Profile
+          </h1>
             <UserProfile></UserProfile>
         </Navbar>
       </div>

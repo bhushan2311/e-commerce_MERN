@@ -20,28 +20,28 @@ export function UserOrders() {
 
   return (
     <div>
-      <div className="flex justify-center items-center col-span-3">
-        {status === "loading" ? (
-          <Oval
-            visible={true}
-            height="80"
-            width="80"
-            color="black"
-            ariaLabel="oval-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
-        ) : null}
-      </div>
+      {status === "loading" ? (
+            <div className="flex justify-center items-center col-span-3">
+              <Oval
+                visible={true}
+                height="80"
+                width="80"
+                color="black"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          ) : null}
       {orders &&
         orders.map((order) => (
           <div>
             <div>
               <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                  <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
+                  <h3 className="text-2xl my-5 tracking-tight text-gray-900">
                     Order # {order.id}
-                  </h1>
+                  </h3>
                   <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
                     Order Status : {order.status}
                   </h3>

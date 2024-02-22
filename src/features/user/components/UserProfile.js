@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserInfo, selectUserStatus, updateUserAsync } from "../userSlice";
+import {
+  selectUserInfo,
+  selectUserStatus,
+  updateUserAsync,
+} from "../userSlice";
 import { useForm } from "react-hook-form";
 import { Oval } from "react-loader-spinner";
-
 
 export function UserProfile() {
   const dispatch = useDispatch();
   const user = useSelector(selectUserInfo);
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
-  
+
   const status = useSelector(selectUserStatus);
 
   const {
@@ -41,7 +44,6 @@ export function UserProfile() {
     setSelectedEditIndex(-1);
   };
 
-
   const editUseState = (index) => {
     setSelectedEditIndex(index);
     const address = user.address[index];
@@ -65,9 +67,9 @@ export function UserProfile() {
     <div>
       <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-          <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
+          {/* <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
             Name: {user.name ? user.name : "New User"}
-          </h1>
+          </h1> */}
           <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
             Email: {user.email}
           </h3>
@@ -271,8 +273,8 @@ export function UserProfile() {
           {/* --------- End Add New Address Form -----------*/}
 
           <p className="mt-0.5 text-sm text-gray-500">Your Address :</p>
-          <div className="flex justify-center items-center col-span-3">
-            {status === "loading" ? (
+          {status === "loading" ? (
+            <div className="flex justify-center items-center col-span-3">
               <Oval
                 visible={true}
                 height="80"
@@ -282,10 +284,10 @@ export function UserProfile() {
                 wrapperStyle={{}}
                 wrapperClass=""
               />
-            ) : null}
-          </div>
+            </div>
+          ) : null}
           {user.address.map((add, index) => (
-            <div>
+            <div className="mt-5">
               {selectedEditIndex === index ? (
                 // ----------------- form for editing address ---------------
                 <form

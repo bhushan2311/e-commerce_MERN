@@ -324,8 +324,8 @@ function Checkout() {
                     Choose from Existing addresses
                   </p>
                   <ul role="list">
-                  <div className="flex justify-center items-center col-span-3">
-                      {status === "loading" ? (
+                    {status === "loading" ? (
+                      <div className="flex justify-center items-center col-span-3">
                         <Oval
                           visible={true}
                           height="80"
@@ -335,12 +335,12 @@ function Checkout() {
                           wrapperStyle={{}}
                           wrapperClass=""
                         />
-                      ) : null}
-                    </div>
+                      </div>
+                    ) : null}
                     {user.address.map((address, index) => (
                       <li
                         key={index}
-                        className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
+                        className="mt-4 flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
                       >
                         <div className="flex gap-x-4">
                           <input
@@ -405,7 +405,7 @@ function Checkout() {
                             id="card"
                             name="payments"
                             type="radio"
-                            onChange={(e) => setpaymentMethod(e.target.value)}
+                            // onChange={(e) => setpaymentMethod(e.target.value)}
                             value={"card"}
                             checked={paymentMethod === "card"}
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -414,7 +414,7 @@ function Checkout() {
                             htmlFor="card"
                             className="block text-sm font-medium leading-6 text-gray-900"
                           >
-                            Card Payment
+                            Card Payment (Not available at this time)
                           </label>
                         </div>
                       </div>
@@ -433,8 +433,8 @@ function Checkout() {
                 </h1>
                 <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
-                    <div className="flex justify-center items-center col-span-3">
-                      {status === "loading" ? (
+                    {status === "loading" ? (
+                      <div className="flex justify-center items-center col-span-3">
                         <Oval
                           visible={true}
                           height="80"
@@ -444,8 +444,8 @@ function Checkout() {
                           wrapperStyle={{}}
                           wrapperClass=""
                         />
-                      ) : null}
-                    </div>
+                      </div>
+                    ) : null}
                     {items.map((item) => (
                       <li key={item.id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -525,7 +525,7 @@ function Checkout() {
                 </div>
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                   <p>
-                    or
+                    or{" "}
                     <Link to="/">
                       <button
                         type="button"

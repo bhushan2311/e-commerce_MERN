@@ -68,8 +68,8 @@ export default function ProductDetails() {
   // in server data we will add color,size & highlights
   return (
     <div className="bg-white">
-      <div className="flex justify-center items-center col-span-3">
-            {status === "loading" ? (
+      {status === "loading" ? (
+            <div className="flex justify-center items-center col-span-3">
               <Oval
                 visible={true}
                 height="80"
@@ -79,8 +79,8 @@ export default function ProductDetails() {
                 wrapperStyle={{}}
                 wrapperClass=""
               />
-            ) : null}
-          </div>
+            </div>
+          ) : null}
       {product && (
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
