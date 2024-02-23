@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -21,52 +21,8 @@ import { Oval } from "react-loader-spinner";
 
 import { useAlert } from "react-alert";
 
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
 
-const addresses = [
-  {
-    name: "John wick",
-    street: "11th Main",
-    city: "Delhi",
-    pinCode: 110001,
-    state: "Delhi",
-    phone: 12312321331,
-  },
-  {
-    name: "John Doe",
-    street: "15th Main",
-    city: "Bangalore",
-    pinCode: 560034,
-    state: "Karnataka",
-    phone: 123123123,
-  },
-];
+
 function Checkout() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
@@ -129,10 +85,11 @@ function Checkout() {
       alert.error("Please choose address before placing order");
     }
   };
-
+  
   return (
     <>
-      {!currentOrder && <Navigate to="/" replace={true}></Navigate>}
+      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      
       {currentOrder && (
         <Navigate
           to={`/order-success/${currentOrder.id}`}
