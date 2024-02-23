@@ -62,24 +62,17 @@ function Footer() {
             >
               <span className="sr-only">Linkedin</span>
               <svg
-  className="w-6 h-6"
-  aria-hidden="true"
-  fill="currentColor"
-  viewBox="0 0 24 24"
->
-  <path
-    fillRule="evenodd"
-    clipRule="evenodd"
-    d="M20 2H4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V4a2 2 0 00-2-2zM8.797 18.997H6V10.299h2.797v8.698H8.797zM7.398 9.198a1.204 1.204 0 110-2.408 1.204 1.204 0 010 2.408zM18 18.997h-2.799v-4.947c0-1.185-.023-2.71-1.648-2.71-1.648 0-1.903 1.289-1.903 2.619v5.038H9.75V10.299h2.582v1.391h.039c.36-.683 1.243-1.402 2.544-1.402 2.725 0 3.231 1.792 3.231 4.121v4.579H18v.001z"
-  />
-</svg>
-
-
-
-
-
-
-
+                className="w-6 h-6"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M20 2H4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V4a2 2 0 00-2-2zM8.797 18.997H6V10.299h2.797v8.698H8.797zM7.398 9.198a1.204 1.204 0 110-2.408 1.204 1.204 0 010 2.408zM18 18.997h-2.799v-4.947c0-1.185-.023-2.71-1.648-2.71-1.648 0-1.903 1.289-1.903 2.619v5.038H9.75V10.299h2.582v1.391h.039c.36-.683 1.243-1.402 2.544-1.402 2.725 0 3.231 1.792 3.231 4.121v4.579H18v.001z"
+                />
+              </svg>
             </a>
             <a
               href="https://www.instagram.com/an_extraordinary_/?next=%2Fan_extraordinary%2F"
