@@ -287,7 +287,7 @@ export function UserProfile() {
             </div>
           ) : null}
           {user.address.map((add, index) => (
-            <div className="mt-5">
+            <div className="mt-5" key={add.id}>
               {selectedEditIndex === index ? (
                 // ----------------- form for editing address ---------------
                 <form

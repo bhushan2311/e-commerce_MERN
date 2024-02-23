@@ -21,21 +21,21 @@ export function UserOrders() {
   return (
     <div>
       {status === "loading" ? (
-            <div className="flex justify-center items-center col-span-3">
-              <Oval
-                visible={true}
-                height="80"
-                width="80"
-                color="black"
-                ariaLabel="oval-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
-            </div>
-          ) : null}
+        <div className="flex justify-center items-center col-span-3">
+          <Oval
+            visible={true}
+            height="80"
+            width="80"
+            color="black"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      ) : null}
       {orders &&
         orders.map((order) => (
-          <div>
+          <div key={order.id}>
             <div>
               <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">

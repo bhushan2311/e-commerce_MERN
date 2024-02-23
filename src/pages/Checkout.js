@@ -19,6 +19,8 @@ import { selectUserInfo, updateUserAsync } from "../features/user/userSlice";
 
 import { Oval } from "react-loader-spinner";
 
+import { useAlert } from "react-alert";
+
 const products = [
   {
     id: 1,
@@ -68,7 +70,7 @@ const addresses = [
 function Checkout() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
-
+  const alert = useAlert();
   const {
     register,
     handleSubmit,
@@ -88,6 +90,8 @@ function Checkout() {
 
   const currentOrder = useSelector(selectCurrentOrder);
 
+  const [checkedAddress, setCheckedAddress] = useState(false);
+
   const handleRemove = (e, id) => {
     dispatch(deleteFromCartAsync(id));
   };
@@ -98,6 +102,7 @@ function Checkout() {
 
   const handleAddress = (e) => {
     setSelectedAddress(user.address[e.target.value]);
+    setCheckedAddress(true);
   };
 
   const totalPrice = items.reduce(
@@ -107,22 +112,27 @@ function Checkout() {
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   const handleOrder = (e) => {
-    const order = {
-      user: user.id, // for dummy api it was user only. why user:user.id? bcz we r expecting user.id to store in database
-      items,
-      totalItems,
-      totalPrice,
-      paymentMethod,
-      selectedAddress,
-    };
-    dispatch(createOrderAsync(order));
-    dispatch(resetCartAsync(user.id)); // to delete all items from cart as soon as the user placed order(click on order now)
-    // here we are navigating user to order-success page only if there is currentOrder
+    if(checkedAddress){
+      const order = {
+        user: user.id, // for dummy api it was user only. why user:user.id? bcz we r expecting user.id to store in database
+        items,
+        totalItems,
+        totalPrice,
+        paymentMethod,
+        selectedAddress,
+      };
+      dispatch(createOrderAsync(order));
+      dispatch(resetCartAsync(user.id)); // to delete all items from cart as soon as the user placed order(click on order now)
+      // here we are navigating user to order-success page only if there is currentOrder
+    }
+    else{
+      alert.error("Please choose address before placing order");
+    }
   };
 
   return (
     <>
-      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {!currentOrder && <Navigate to="/" replace={true}></Navigate>}
       {currentOrder && (
         <Navigate
           to={`/order-success/${currentOrder.id}`}
