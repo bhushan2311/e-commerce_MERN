@@ -69,7 +69,7 @@ export default function Cart() {
 
   return (
     <>
-      {!items.length && isCartLoaded && (
+      {!items.length && isCartLoaded && (             // cartLoaded is must to prevent from navigating to "/" even !items.length was true
         <Navigate to="/" replace={true}></Navigate>
       )}
       <div>
