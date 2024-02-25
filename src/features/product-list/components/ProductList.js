@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
 import { fetchBrands, fetchCategories } from "../productAPI";
 import { Oval } from "react-loader-spinner";
+import { resetOrder } from "../../order/orderSlice";
 
 const sortOptions = [
   { name: "Best Rating", sortBy: "rating", orderBy: "desc", current: false },
@@ -160,6 +161,7 @@ export function ProductList() {
   useEffect(() => {
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoriesAsync());
+    dispatch(resetOrder());
   }, []);
 
   return (

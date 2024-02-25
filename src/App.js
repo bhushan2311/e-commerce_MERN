@@ -33,6 +33,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import Footer from "./features/common/Footer";
+import { resetOrder, selectCurrentOrder } from "./features/order/orderSlice";
 
 const options = {
   timeout: 5000,
@@ -114,7 +115,14 @@ function App() {
 
   useEffect(() => {
     dispatch(checkAuthAsync());
+
   }, []);
+  
+  useEffect(() => {
+    //reset currentOrder
+    dispatch(resetOrder());
+  }, [])
+  
 
   useEffect(() => {
     if (user) {
