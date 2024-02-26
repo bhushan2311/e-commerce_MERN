@@ -7,6 +7,8 @@ import {
 } from "../userSlice";
 import { useForm } from "react-hook-form";
 import { Oval } from "react-loader-spinner";
+import { useAlert } from "react-alert";
+
 
 export function UserProfile() {
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ export function UserProfile() {
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
 
   const status = useSelector(selectUserStatus);
-
+  const alert = useAlert();
   const {
     register,
     handleSubmit,
@@ -29,6 +31,7 @@ export function UserProfile() {
     const newUser = { ...user, address: [...user.address] };
     newUser.address.splice(index, 1);
     dispatch(updateUserAsync(newUser));
+    alert.info("Address removed!");
 
     // -------- Alternative way to delete address (here we are replacing address array with new address array)
     /*const newAdress = [...user.address];
@@ -42,6 +45,7 @@ export function UserProfile() {
     newUser.address.splice(index, 1, addressUpdate);
     dispatch(updateUserAsync(newUser));
     setSelectedEditIndex(-1);
+    
   };
 
   const editUseState = (index) => {
@@ -61,6 +65,7 @@ export function UserProfile() {
     const newUser = { ...user, address: [...user.address, newAddress] };
     dispatch(updateUserAsync(newUser));
     setShowAddAddressForm(false);
+    alert.success("New added address!");
   };
 
   return (
@@ -487,13 +492,13 @@ export function UserProfile() {
                     </p>
                   </div>
                 </div>
-                <div className="hidden sm:flex sm:flex-col sm:items-end">
+                <div className="sm:flex sm:flex-col sm:items-end">
                   <p className="text-sm leading-6 text-gray-900">
                     Phone: {add.phone}
                   </p>
                   <p className="text-sm leading-6 text-gray-500">{add.city}</p>
                 </div>
-                <div className="hidden sm:flex sm:flex-col sm:items-end">
+                <div className="sm:flex sm:flex-col sm:items-end">
                   <button
                     onClick={() => {
                       editUseState(index);

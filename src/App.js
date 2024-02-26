@@ -132,6 +132,7 @@ function App() {
   }, [dispatch, user]);
 
   return (
+    <>
     <div className="App bg-gray-100">
       {/* <Home/> */}
       {/* <LoginPage></LoginPage> */}
@@ -139,8 +140,9 @@ function App() {
       <Provider template={AlertTemplate} {...options}>
         {userChecked && <RouterProvider router={router} />}
       </Provider>
-      <Footer></Footer>
     </div>
+      <Footer></Footer>
+    </>
   );
 }
 

@@ -99,7 +99,7 @@ export function UserOrders() {
                     <p>Total Items in Cart</p>
                     <p>{order.totalItems} items</p>
                   </div>
-                  <p className="mt-0.5 text-sm text-gray-500">
+                  <p className="my-2 text-sm text-gray-500">
                     Shipping Address :
                   </p>
                   <div className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200">
