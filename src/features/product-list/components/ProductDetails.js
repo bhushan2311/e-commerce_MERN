@@ -69,6 +69,20 @@ export default function ProductDetails() {
     e.preventDefault();
   };
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === product.images.length - 1 ? 0 : prevSlide + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === 0 ? product.images.length - 1 : prevSlide - 1
+    );
+  };
+
   // in server data we will add color,size & highlights
   return (
     <div className="bg-white">
@@ -128,36 +142,96 @@ export default function ProductDetails() {
           </nav>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <img
-                src={product.images[0]}
-                alt={product.title}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  src={product.images[1]}
-                  alt={product.title}
-                  className="h-full w-full object-cover object-center"
-                />
+
+          <div className="px-6 py-5 max-w-2xl mx-auto  border border-black border-opacity-10">
+            <div
+              id="default-carousel"
+              className="relative"
+              data-carousel="static"
+            >
+              {/* Carousel wrapper */}
+              <div className="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
+                {/* Dynamically render slides based on images array */}
+                {product.images.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`${
+                      index === currentSlide ? "block" : "hidden"
+                    } duration-700 ease-in-out`}
+                    data-carousel-item
+                  >
+                    <img
+                      src={image}
+                      className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                      alt={product.title}
+                    />
+                  </div>
+                ))}
               </div>
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  src={product.images[2]}
-                  alt={product.title}
-                  className="h-full w-full object-cover object-center"
-                />
+              {/* Slider indicators */}
+              <div className="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
+                {product.images.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    className={`w-3 h-3 rounded-full ${
+                      index === currentSlide ? "bg-black" : "bg-gray-300"
+                    }`}
+                    aria-current={index === currentSlide ? "true" : "false"}
+                    aria-label={`Slide ${index + 1}`}
+                    onClick={() => setCurrentSlide(index)}
+                  ></button>
+                ))}
               </div>
-            </div>
-            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              <img
-                src={product.images[3]}
-                alt={product.title}
-                className="h-full w-full object-cover object-center"
-              />
+              {/* Slider controls */}
+              <button
+                type="button"
+                className="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                data-carousel-prev
+                onClick={prevSlide}
+              >
+                <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg
+                    className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                  <span className="hidden">Previous</span>
+                </span>
+              </button>
+              <button
+                type="button"
+                className="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                data-carousel-next
+                onClick={nextSlide}
+              >
+                <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg
+                    className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                  <span className="hidden">Next</span>
+                </span>
+              </button>
             </div>
           </div>
 
@@ -243,7 +317,9 @@ export default function ProductDetails() {
 
                 {/* Sizes */}
                 <div className="mt-10">
-                  <div className="flex items-center justify-between">
+                  {(product.category === "womens-dresses" ||
+                    product.category === "mens-shirts" ||
+                    product.category === "tops")? <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
                     <a
                       href="#"
@@ -251,7 +327,7 @@ export default function ProductDetails() {
                     >
                       Size guide
                     </a>
-                  </div>
+                  </div>:null}
 
                   <RadioGroup
                     value={selectedSize}
@@ -262,7 +338,8 @@ export default function ProductDetails() {
                       Choose a size
                     </RadioGroup.Label>
                     {product.category === "womens-dresses" ||
-                    product.category === "mens-shirts" || product.category === "tops" ? (
+                    product.category === "mens-shirts" ||
+                    product.category === "tops" ? (
                       <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                         {sizes.map((size) => (
                           <RadioGroup.Option
@@ -384,3 +461,123 @@ export default function ProductDetails() {
     </div>
   );
 }
+
+// {<div className="max-w-2xl mx-auto  border border-black border-opacity-10" >
+//             <div
+//               id="default-carousel"
+//               className="relative  border border-black border-opacity-10"
+//               data-carousel="static"
+//             >
+//               {/* Carousel wrapper */}
+//               <div className="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
+//                 {/* Item 1 */}
+//                 <div
+//                   className="hidden duration-700 ease-in-out"
+//                   data-carousel-item
+//                 >
+//                   <span className="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">
+//                     First Slide
+//                   </span>
+//                   <img
+//                     src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+//                     className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+//                     alt="..."
+//                   />
+//                 </div>
+//                 {/* Item 2 */}
+//                 <div
+//                   className="hidden duration-700 ease-in-out"
+//                   data-carousel-item
+//                 >
+//                   <img
+//                     src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+//                     className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+//                     alt="..."
+//                   />
+//                 </div>
+//                 {/* Item 3 */}
+//                 <div
+//                   className="hidden duration-700 ease-in-out"
+//                   data-carousel-item
+//                 >
+//                   <img
+//                     src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
+//                     className="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+//                     alt="..."
+//                   />
+//                 </div>
+//               </div>
+//               {/* Slider indicators */}
+//               <div className="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
+//                 <button
+//                   type="button"
+//                   className="w-3 h-3 rounded-full"
+//                   aria-current="false"
+//                   aria-label="Slide 1"
+//                   data-carousel-slide-to="0"
+//                 ></button>
+//                 <button
+//                   type="button"
+//                   className="w-3 h-3 rounded-full"
+//                   aria-current="false"
+//                   aria-label="Slide 2"
+//                   data-carousel-slide-to="1"
+//                 ></button>
+//                 <button
+//                   type="button"
+//                   className="w-3 h-3 rounded-full"
+//                   aria-current="false"
+//                   aria-label="Slide 3"
+//                   data-carousel-slide-to="2"
+//                 ></button>
+//               </div>
+//               {/* Slider controls */}
+//               <button
+//                 type="button"
+//                 className="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+//                 data-carousel-prev
+//               >
+//                 <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+//                   <svg
+//                     className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+//                     fill="none"
+//                     stroke="currentColor"
+//                     viewBox="0 0 24 24"
+//                     xmlns="http://www.w3.org/2000/svg"
+//                   >
+//                     <path
+//                       strokeLinecap="round"
+//                       strokeLinejoin="round"
+//                       strokeWidth="2"
+//                       d="M15 19l-7-7 7-7"
+//                     ></path>
+//                   </svg>
+//                   <span className="hidden">Previous</span>
+//                 </span>
+//               </button>
+//               <button
+//                 type="button"
+//                 className="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+//                 data-carousel-next
+//               >
+//                 <span className="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+//                   <svg
+//                     className="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+//                     fill="none"
+//                     stroke="currentColor"
+//                     viewBox="0 0 24 24"
+//                     xmlns="http://www.w3.org/2000/svg"
+//                   >
+//                     <path
+//                       strokeLinecap="round"
+//                       strokeLinejoin="round"
+//                       strokeWidth="2"
+//                       d="M9 5l7 7-7 7"
+//                     ></path>
+//                   </svg>
+//                   <span className="hidden">Next</span>
+//                 </span>
+//               </button>
+//             </div>
+
+//           </div>}
