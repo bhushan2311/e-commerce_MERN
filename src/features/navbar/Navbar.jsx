@@ -141,9 +141,33 @@ const Navbar = ({ children }) => {
                         </Menu>
                       </div>
                     </div>
+                    
                     <div className="-mr-2 flex md:hidden">
+                      {/* ----cart icon (mobile view) */}
+                    <Link className="mt-4" to="/cart">
+                        <button
+                          type="button"
+                          className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        >
+                          {/* <span className="absolute -inset-1.5" /> */}
+                          <span className="sr-only">View notifications</span>
+                          <ShoppingCartIcon
+                            className="h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </Link>
+                      <span className="inline-flex items-center rounded-md mb-4 -ml-1 bg-red-20 px-1 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                        {items.length > 0 ? (
+                          <span className="inline-flex items-center rounded-md mb-4 -ml-1 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                            {items.length}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                      </span>
                       {/* Mobile menu button */}
-                      <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <Disclosure.Button className="relative inline-flex items-center my-2 border border-gray-700 justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="absolute -inset-0.5" />
                         <span className="sr-only">Open main menu</span>
                         {open ? (
@@ -199,28 +223,7 @@ const Navbar = ({ children }) => {
                           {userInfo.email}
                         </div>
                       </div>
-                      <Link to="/cart">
-                        <button
-                          type="button"
-                          className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        >
-                          {/* <span className="absolute -inset-1.5" /> */}
-                          <span className="sr-only">View notifications</span>
-                          <ShoppingCartIcon
-                            className="h-6 w-6"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </Link>
-                      <span className="inline-flex items-center rounded-md mb-4 -ml-1 bg-red-20 px-1 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                        {items.length > 0 ? (
-                          <span className="inline-flex items-center rounded-md mb-4 -ml-1 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                            {items.length}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </span>
+                      {/* moved cart icon outside burger-menu */}
                     </div>
                     <div className="mt-3 space-y-1 px-2">
                       {userNavigation.map((item) => (
