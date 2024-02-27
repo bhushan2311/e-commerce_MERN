@@ -1,12 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
-import { selectLoggedInUser, createUserAsync,selectError } from "../authSlice";
+import { selectLoggedInUser, createUserAsync, selectError } from "../authSlice";
 import { Navigate } from "react-router-dom";
 // import { increment, incrementByAmount, selectCount } from "./counterSlice";
 // import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 export function Signup() {
   const alert = useAlert();
   const {
@@ -27,7 +29,13 @@ export function Signup() {
       // alert("Email already exist!!");
       alert.error("Email already exist!!");
     }
-  }, [showError])
+  }, [showError]);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <>
       {user && <Navigate to="/" replace={true} />}
@@ -95,24 +103,31 @@ export function Signup() {
                   Password
                 </label>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="password"
                   {...register("password", {
-                    required: "password is required",
+                    required: "Password is required",
                     pattern: {
                       value:
                         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                      message: `- at least 8 characters\n
-                  - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                  \n- Can contain special characters`,
+                      message: `- At least 8 characters\n
+                - Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
+                - Can contain special characters`,
                     },
                   })}
-                  type="password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type={showPassword ? "text" : "password"} // Toggle input type
+                  className="block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                <div
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                  onClick={togglePasswordVisibility} // Toggle password visibility on click
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}{" "}
+                  {/* Toggle eye icon based on password visibility */}
+                </div>
                 {errors.password && (
-                  <p className="text-red-500"> {errors.password.message}</p>
+                  <p className="text-red-500">{errors.password.message}</p>
                 )}
               </div>
             </div>
