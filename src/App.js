@@ -90,7 +90,7 @@ const router = createBrowserRouter([
     element: <OrderSuccessPage></OrderSuccessPage>,
   },
   {
-    path: "/orders",
+    path: "/my-orders",
     element: <UserOrderPage></UserOrderPage>, // time stamp: 4:53:35 not created file in page as UserOrderPage, see accordingly
   },
   {
