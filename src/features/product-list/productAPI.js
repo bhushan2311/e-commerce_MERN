@@ -47,8 +47,9 @@ export function fetchProductsByFilters({filter,sort, pagination}) {
   for(let key in filter){
     const filterKey = filter[key];    // array
     if(filterKey.length>0){
-      const filterKeyLastValue = filterKey[filterKey.length-1];
-      queryString += `${key}=${filterKeyLastValue}&`;
+      // const filterKeyLastValue = filterKey[filterKey.length-1];    // was sending only last category value, [mobile, laptops] so laptops sending
+      // queryString += `${key}=${filterKeyLastValue}&`;    
+      queryString += `${key}=${filterKey}&`;    // sending all category values
     }
   }
 
