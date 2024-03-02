@@ -15,6 +15,7 @@ import {
 import {
   createOrderAsync,
   selectCurrentOrder,
+  selectOrderStatus,
 } from "../features/order/orderSlice";
 import { selectUserInfo, updateUserAsync } from "../features/user/userSlice";
 
@@ -86,6 +87,8 @@ function Checkout() {
 
   const isCartLoaded = useSelector(selectCartLoaded);
 
+  const orderStatus = useSelector(selectOrderStatus);
+
   return (
     <>
       {!items.length &&
@@ -98,7 +101,20 @@ function Checkout() {
           replace={true}
         ></Navigate>
       )}
-      {
+
+      {orderStatus === "loading" ? (
+        <div className="flex justify-center items-center col-span-3">
+          <Oval
+            visible={true}
+            height="80"
+            width="80"
+            color="black"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      ) : (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl py-3 font-bold text-gray-900">
             Checkout Order
@@ -508,7 +524,7 @@ function Checkout() {
             </div>
           </div>
         </div>
-      }
+      )}
     </>
   );
 }

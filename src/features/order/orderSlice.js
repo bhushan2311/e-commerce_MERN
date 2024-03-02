@@ -42,4 +42,6 @@ export const selectCount = (state) => state.counter.value;
 
 export const selectCurrentOrder = (state) => state.order.currentOrder;
 
+export const selectOrderStatus = (status) => status.order.status;
+
 export default orderSlice.reducer;
