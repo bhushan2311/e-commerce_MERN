@@ -43,7 +43,7 @@ export function UserOrders() {
                     Order # {order.id}
                   </h3>
                   <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
-                    Order Status : {order.status}
+                     Order Status : Pending {/*{order.status} */}
                   </h3>
                   <div className="flow-root">
                     <ul role="list" className="-my-6 divide-y divide-gray-200">
@@ -77,7 +77,7 @@ export function UserOrders() {
                                   htmlFor="quantity"
                                   className="inline mr-5 text-sm font-medium leading-6 text-gray-900"
                                 >
-                                  Qty :{item.product.quantity}
+                                  Qty :{item.quantity}
                                 </label>
                               </div>
 
